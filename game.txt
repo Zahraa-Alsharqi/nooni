@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🎀Little Game🎀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family:'Quicksand',sans-serif;
+  background:#f6c1d1;
+  color:#8b004c; 
+  overflow-y:auto;
+  position:relative;
+  text-align:center;
+  user-select:none; 
+}
+
+/* Instruction at top */
+#instruction{
+  font-size:1.6rem;
+  font-weight:700;
+  margin:20px 0;
+  color:#8b004c;
+}
+
+/* Thoughts / one-liners */
+.thought{
+  position:absolute;
+  font-size:1.5rem; /* slightly bigger */
+  font-weight:600;
+  color:#8b004c;
+  white-space:nowrap;
+  cursor:grab;
+  transition: all 0.2s ease;
+  z-index:5;
+}
+
+/* Hearts */
+.heart {
+  position:absolute;
+  font-size:2rem;
+  color:rgba(255,182,193,0.3);
+  animation:float 10s infinite;
+  pointer-events:none;
+}
+@keyframes float {
+  0% {transform:translateY(100vh) rotate(0deg);}
+  100% {transform:translateY(-10vh) rotate(360deg);}
+}
+
+/* Ribbon Bin */
+#ribbon-bin{
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:8rem; 
+  cursor:default;
+  z-index:20;
+}
+
+/* She Stayed section */
+#she-stayed{
+  background:#8b004c; 
+  color:#fff0f5; 
+  max-width:560px; 
+  padding:24px; 
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  font-size:1.28rem; 
+  font-weight:600;
+  line-height:1.8;
+  opacity:0;
+  transform:scale(0);
+  transition: all 0.5s ease;
+  position:absolute;
+  top:150px; 
+  left:50%;
+  transform:translateX(-50%) scale(0);
+}
+
+/* Button to scroll to next page */
+.scroll-btn{
+  display:block;
+  margin:20px auto 0 auto; 
+  padding:10px 24px;
+  font-size:1rem;
+  background:#8b004c;
+  color:#fff0f5;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:700;
+  opacity:0;
+  transform:scale(0);
+  transition: all 0.5s ease;
+}
+</style>
+</head>
+<body>
+
+<div id="instruction">🎀Drag the floating lines into the ribbon bin🎀</div>
+
+<div id="game-top" style="height:600px; position:relative;">
+  <div class="thought">our "my stomach hurts" laughter</div>
+  <div class="thought">our undeniable chaos</div>
+  <div class="thought">our yummy mindset</div>
+  <div class="thought">our to-die-for energy</div>
+  <div class="thought">our pureness</div>
+  <div class="thought">our late-night car rides</div>
+  <div class="thought">our tea-spills and theories</div>
+  <div class="thought">the accent chaos</div>
+  <div class="thought">where boredom doesn't exist</div>
+  <div class="thought">us vibing together</div>
+  <div class="thought">every discovery</div>
+</div>
+
+<div id="ribbon-bin">🎀</div>
+
+<div id="she-stayed">
+  <h1>🎀She Stayed🎀</h1>
+  <p>
+    She stayed when I was extremely hard to be understood and dealed with.<br>
+    She saw every version of me and has never even thought of walking away.<br>
+    Every secret, every emotion, every ridiculous thought, she was there.<br>
+    Every late-night car ride, every tea spill, every inside joke, she was there.<br>
+    🎀She has always stayed, and she always will🎀
+  </p>
+</div>
+
+<button class="scroll-btn" onclick="location.href='end.html';">one more thing</button>
+
+<script>
+// Floating hearts
+for(let i=0;i<60;i++){
+  let heart=document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left=Math.random()*100+'%';
+  heart.style.top=Math.random()*100+'%';
+  heart.style.fontSize=(10+Math.random()*30)+'px';
+  heart.style.animationDuration=(5+Math.random()*10)+'s';
+  heart.style.opacity=Math.random()*0.4+0.2;
+  heart.innerHTML='🎀';
+  document.body.appendChild(heart);
+}
+
+// Game logic
+const thoughts = document.querySelectorAll('.thought');
+const ribbon = document.getElementById('ribbon-bin');
+const sheStayed = document.getElementById('she-stayed');
+const scrollBtn = document.querySelector('.scroll-btn');
+let collected = 0;
+
+// Fixed scattered positions for all lines (avoids overlap)
+const positions = [
+  {left:'5vw', top:'50px'},
+  {left:'25vw', top:'120px'},
+  {left:'45vw', top:'70px'},
+  {left:'65vw', top:'150px'},
+  {left:'80vw', top:'100px'},
+  {left:'10vw', top:'220px'},
+  {left:'35vw', top:'200px'},
+  {left:'55vw', top:'250px'},
+  {left:'70vw', top:'300px'},
+  {left:'20vw', top:'320px'},
+  {left:'50vw', top:'400px'}
+];
+
+thoughts.forEach((t,i)=>{
+  t.style.left = positions[i].left;
+  t.style.top = positions[i].top;
+});
+
+// Drag functionality
+thoughts.forEach(t=>{
+  t.addEventListener('mousedown', e=>{
+    e.preventDefault();
+    let shiftX = e.clientX - t.getBoundingClientRect().left;
+    let shiftY = e.clientY - t.getBoundingClientRect().top;
+    t.style.cursor='grabbing';
+    t.style.zIndex=1000;
+
+    function moveAt(pageX,pageY){
+      t.style.left = pageX - shiftX + 'px';
+      t.style.top = pageY - shiftY + 'px';
+    }
+
+    function onMouseMove(event){
+      moveAt(event.pageX,event.pageY);
+    }
+
+    document.addEventListener('mousemove',onMouseMove);
+
+    document.addEventListener('mouseup', function upHandler(){
+      document.removeEventListener('mousemove',onMouseMove);
+      document.removeEventListener('mouseup',upHandler);
+      t.style.cursor='grab';
+
+      const ribbonRect = ribbon.getBoundingClientRect();
+      const elemRect = t.getBoundingClientRect();
+      if(
+        elemRect.left + elemRect.width/2 > ribbonRect.left &&
+        elemRect.right - elemRect.width/2 < ribbonRect.right &&
+        elemRect.top + elemRect.height/2 > ribbonRect.top &&
+        elemRect.bottom - elemRect.height/2 < ribbonRect.bottom
+      ){
+        t.style.display='none';
+        collected++;
+        if(collected>=thoughts.length){
+          ribbon.style.display='none';
+          sheStayed.style.opacity='1';
+          sheStayed.style.transform='translateX(-50%) scale(1)';
+          scrollBtn.style.opacity='1';
+          scrollBtn.style.transform='scale(1)';
+        }
+      }
+    });
+  });
+});
+
+document.ondragstart = ()=>false; 
+</script>
+
+</body>
+</html>

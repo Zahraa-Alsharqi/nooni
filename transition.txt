@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🎀Our World🎀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Quicksand',sans-serif;
+  background:#f6c1d1;
+  color:#8b004c;
+  text-align:center;
+  padding:20px;
+  overflow-y:scroll;
+  position:relative;
+}
+
+h1 {
+  font-size:2.8rem;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.line {
+  font-size:1.5rem;
+  margin:12px 0;
+  opacity:0;
+  font-weight:600;
+}
+
+/* reveal from air */
+@keyframes fadeIn {
+  from {
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.box {
+  background:#8b004c;
+  color:#fff0f5;
+  padding:25px;
+  margin:40px auto;
+  max-width:600px;
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  font-size:1.4rem;
+  line-height:1.8;
+  font-weight:500;
+}
+
+button {
+  margin-top:30px;
+  padding:12px 30px;
+  font-size:1.2rem;
+  background:#8b004c;
+  color:#fff0f5;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* floating ribbons */
+.heart {
+  position:absolute;
+  font-size:2rem;
+  color:rgba(255,182,193,0.3);
+  animation:float 10s infinite;
+  pointer-events:none;
+}
+
+@keyframes float {
+  0% {transform:translateY(100vh) rotate(0deg);}
+  100% {transform:translateY(-10vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎀Our World🎀</h1>
+
+<div class="line">absolute perfect duo, duuuhh</div>
+<div class="line">we're extremely fun bitch</div>
+<div class="line">and extremely funny dafauq</div>
+<div class="line">literal baddies hellaur?</div>
+<div class="line">playful chaos and then BOMBACLAT, sudden deep moments</div>
+<div class="line">car rides, especially the late night ones ifywim</div>
+<div class="line">every hangout ever means more than anything in this world</div>
+<div class="line">accents of the Bahrani guy who's for the streets (basically tripled mahdi)</div>
+<div class="line">a Bahrani grandma</div>
+<div class="line">a Bahrani grandpa, the list goes on...</div>
+<div class="line">laughing our tits and asses off</div>
+<div class="line">spilling hot tea then slurping that shii</div>
+<div class="line">acting out interactions on eachother ifywim</div>
+<div class="line">reflecting on lores</div>
+<div class="line">all the moments, every second, every hour</div>
+<div class="line">wallah it goes on and on...</div>
+
+<div class="box">
+Every single car ride, every single hangout, every single ridiculous moment with you feels like pure magic. We spill tea, make up random theories, switch accents like it’s a secret language only we understand, and laugh so hard that it hurts. Being with you is the kind of chaos that somehow makes perfect sense; it's wild, loud, soft, and safe all at once. I could spend every hour of every day with you and never ever get bored. I'd never have to fake a smile when I'm with you, and I know for a fact that we could never stop discovering something new. You’re my absolute favorite version of home, and honestly, my life is just yucky without you in it wallah.
+</div>
+
+<button onclick="location.href='game.html'">keep going</button>
+
+<script>
+const lines = document.querySelectorAll('.line');
+let i = 0;
+
+// reveal first line immediately
+lines[i].style.animation = 'fadeIn 1s forwards';
+i++;
+
+function revealNextLine() {
+  if (i < lines.length) {
+    lines[i].style.animation = 'fadeIn 1s forwards';
+    i++;
+    setTimeout(revealNextLine, 2000);
+  }
+}
+
+// start loop after 2 seconds (for second line onward)
+setTimeout(revealNextLine, 2000);
+</script>
+
+<!-- Random scattered hearts -->
+<script>
+for(let i=0;i<60;i++){
+    let heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left=Math.random()*100+'%';
+    heart.style.top=Math.random()*100+'%';
+    heart.style.fontSize=(10+Math.random()*30)+'px';
+    heart.style.animationDuration=(5+Math.random()*10)+'s';
+    heart.style.opacity=Math.random()*0.4+0.2;
+    heart.innerHTML='🎀';
+    document.body.appendChild(heart);
+}
+</script>
+
+</body>
+</html>

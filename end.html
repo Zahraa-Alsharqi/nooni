@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🎀Nooni Only🎀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family:'Quicksand',sans-serif;
+  background:#2b0014;
+  color:#fffaf7;
+  display:flex;
+  justify-content:flex-start; /* allow content to stack from top */
+  align-items:center;
+  flex-direction:column;
+  padding:40px 20px; /* some padding on top/bottom */
+  position:relative;
+  overflow-y:auto; /* allow vertical scrolling */
+  text-align:center;
+}
+
+p{
+  font-size:1.4rem;
+  line-height:1.8;
+  font-weight:600;
+  max-width:720px;      /* controls width (square-like) */
+  margin:20px auto;      /* centers it and adds some vertical spacing */
+  padding:0 10px;       /* soft inner breathing space */
+}
+.heart {
+  position:absolute;
+  font-size:2rem;
+  color:rgba(255,182,193,0.15);
+  animation:float 8s infinite;
+}
+@keyframes float {
+  0% {transform:translateY(100vh);}
+  100% {transform:translateY(-10vh);}
+}
+</style>
+</head>
+<body>
+
+<h1>🎀Always You🎀</h1>
+<p>
+I need you to fully understand that I literally literally literally adore you with every single cell in me.<br>
+I can't beleive that I finally met someone who I still, tilI this day, never faked a laugh with.<br>
+I never felt bored, do you realize that?<br>
+I never doubted our amazing connection, and I'll never will.<br>
+You're the literal embodiment of the word "perfect", in the most human way possible.<br>
+Your pureness, your chaos, your laughter, your energy; everything in you is just so unmatched.<br>
+I will forever cherish every moment, and I can strongly guarantee you on that.<br>
+I'm not joking when I say that I would marry you instantly if you were a man, and no idgaf about anything that might tell us otherwise, I'll marry you anyway.<br>
+I love you and I always will.
+</p>
+
+<!-- Random scattered hearts -->
+<script>
+for(let i=0;i<60;i++){
+    let heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left=Math.random()*100+'%';
+    heart.style.top=Math.random()*100+'%';
+    heart.style.fontSize=(10+Math.random()*30)+'px';
+    heart.style.animationDuration=(5+Math.random()*10)+'s';
+    heart.style.opacity=Math.random()*0.4+0.2;
+    heart.innerHTML='🎀';
+    document.body.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
